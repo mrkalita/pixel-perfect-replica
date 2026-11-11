@@ -79,7 +79,7 @@ export const getMovies = createServerFn({ method: "GET" }).handler(async (): Pro
     rows: [
       { id: "recent", title: "Recently Released", kind: "movie", items: recentlyReleased(all) },
       { id: "trending", title: "Trending Now", kind: "movie", items: all.slice(0, 30) },
-      ...picks.map((g, i) => ({ id: `g-${g.id}`, title: g.name, kind: "movie" as const, items: byGenre[i] })),
+      ...picks.map((g, i) => ({ id: `g-${g.id}`, title: g.name, kind: "movie" as const, items: byGenre[i] ?? [] })),
     ],
     errors,
   };

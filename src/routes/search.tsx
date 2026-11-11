@@ -13,12 +13,12 @@ import { Input } from "@/components/ui/input";
 
 interface SearchParams {
   q: string;
-  type?: Kind;
-  year?: number;
-  genre?: string;
-  rating?: number;
-  lang?: string;
-  avail?: "available";
+  type?: Kind | undefined;
+  year?: number | undefined;
+  genre?: string | undefined;
+  rating?: number | undefined;
+  lang?: string | undefined;
+  avail?: "available" | undefined;
 }
 
 export const Route = createFileRoute("/search")({

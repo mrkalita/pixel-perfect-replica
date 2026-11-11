@@ -6,9 +6,9 @@ import { TitleCard, TitleCardSkeleton } from "./TitleCard";
 interface RailProps {
   title: string;
   items?: TitleSummary[];
-  notice?: string;
+  notice?: string | undefined;
   empty?: ReactNode;
-  showKind?: boolean;
+  showKind?: boolean | undefined;
   action?: ReactNode;
 }
 
