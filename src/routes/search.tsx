@@ -23,13 +23,13 @@ interface SearchParams {
 
 export const Route = createFileRoute("/search")({
   validateSearch: (s: Record<string, unknown>): SearchParams => {
-    const out: SearchParams = { q: typeof s.q === "string" ? s.q.slice(0, 100) : "" };
-    if (s.type === "movie" || s.type === "series" || s.type === "anime") out.type = s.type;
-    if (Number(s.year) > 1900) out.year = Number(s.year);
-    if (typeof s.genre === "string" && s.genre) out.genre = s.genre;
-    if (Number(s.rating) > 0) out.rating = Number(s.rating);
-    if (typeof s.lang === "string" && s.lang) out.lang = s.lang;
-    if (s.avail === "available") out.avail = "available";
+    const out: SearchParams = { q: typeof s["q"] === "string" ? s["q"].slice(0, 100) : "" };
+    if (s["type"] === "movie" || s["type"] === "series" || s["type"] === "anime") out.type = s["type"];
+    if (Number(s["year"]) > 1900) out.year = Number(s["year"]);
+    if (typeof s["genre"] === "string" && s["genre"]) out.genre = s["genre"];
+    if (Number(s["rating"]) > 0) out.rating = Number(s["rating"]);
+    if (typeof s["lang"] === "string" && s["lang"]) out.lang = s["lang"];
+    if (s["avail"] === "available") out.avail = "available";
     return out;
   },
   loaderDeps: ({ search }) => ({ q: search.q.trim() }),
