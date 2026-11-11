@@ -20,7 +20,8 @@ export function ContinueWatchingRail() {
 export function RecommendedRail({ rows }: { rows: Row[] }) {
   const lib = useLibrary();
   const items = useMemo(() => {
-    const genres = favouriteGenres(lib).map((g) => g.genre);
+    const inferred = favouriteGenres(lib).map((g) => g.genre);
+    const genres = [...new Set([...lib.preferredGenres, ...inferred])];
     if (!genres.length) return [];
     const pool = dedupeClient(rows.flatMap((r) => r.items));
     const score = (t: TitleSummary) => t.genres.reduce((s, g) => s + (genres.includes(g) ? genres.length - genres.indexOf(g) : 0), 0);
@@ -34,7 +35,7 @@ export function RecommendedRail({ rows }: { rows: Row[] }) {
       title="Recommended For You"
       items={items}
       showKind
-      empty="Add titles to My List or open a few title pages — recommendations are based on the genres you pick."
+      empty="Choose your favourite genres in your profile or add titles to My List to get personalised recommendations."
     />
   );
 }
