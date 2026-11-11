@@ -10,33 +10,154 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AnimeRouteImport } from './routes/anime'
+import { Route as ExtensionsRouteImport } from './routes/extensions'
+import { Route as LiveTvRouteImport } from './routes/live-tv'
+import { Route as MoviesRouteImport } from './routes/movies'
+import { Route as MySpaceRouteImport } from './routes/my-space'
+import { Route as SearchRouteImport } from './routes/search'
+import { Route as SeriesRouteImport } from './routes/series'
+import { Route as SettingsRouteImport } from './routes/settings'
+import { Route as TitleKindIdRouteImport } from './routes/title.$kind.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AnimeRoute = AnimeRouteImport.update({
+  id: '/anime',
+  path: '/anime',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ExtensionsRoute = ExtensionsRouteImport.update({
+  id: '/extensions',
+  path: '/extensions',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LiveTvRoute = LiveTvRouteImport.update({
+  id: '/live-tv',
+  path: '/live-tv',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MoviesRoute = MoviesRouteImport.update({
+  id: '/movies',
+  path: '/movies',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MySpaceRoute = MySpaceRouteImport.update({
+  id: '/my-space',
+  path: '/my-space',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SearchRoute = SearchRouteImport.update({
+  id: '/search',
+  path: '/search',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SeriesRoute = SeriesRouteImport.update({
+  id: '/series',
+  path: '/series',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SettingsRoute = SettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TitleKindIdRoute = TitleKindIdRouteImport.update({
+  id: '/title/$kind/$id',
+  path: '/title/$kind/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/anime': typeof AnimeRoute
+  '/extensions': typeof ExtensionsRoute
+  '/live-tv': typeof LiveTvRoute
+  '/movies': typeof MoviesRoute
+  '/my-space': typeof MySpaceRoute
+  '/search': typeof SearchRoute
+  '/series': typeof SeriesRoute
+  '/settings': typeof SettingsRoute
+  '/title/$kind/$id': typeof TitleKindIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/anime': typeof AnimeRoute
+  '/extensions': typeof ExtensionsRoute
+  '/live-tv': typeof LiveTvRoute
+  '/movies': typeof MoviesRoute
+  '/my-space': typeof MySpaceRoute
+  '/search': typeof SearchRoute
+  '/series': typeof SeriesRoute
+  '/settings': typeof SettingsRoute
+  '/title/$kind/$id': typeof TitleKindIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/anime': typeof AnimeRoute
+  '/extensions': typeof ExtensionsRoute
+  '/live-tv': typeof LiveTvRoute
+  '/movies': typeof MoviesRoute
+  '/my-space': typeof MySpaceRoute
+  '/search': typeof SearchRoute
+  '/series': typeof SeriesRoute
+  '/settings': typeof SettingsRoute
+  '/title/$kind/$id': typeof TitleKindIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/anime'
+    | '/extensions'
+    | '/live-tv'
+    | '/movies'
+    | '/my-space'
+    | '/search'
+    | '/series'
+    | '/settings'
+    | '/title/$kind/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/anime'
+    | '/extensions'
+    | '/live-tv'
+    | '/movies'
+    | '/my-space'
+    | '/search'
+    | '/series'
+    | '/settings'
+    | '/title/$kind/$id'
+  id:
+    | '__root__'
+    | '/'
+    | '/anime'
+    | '/extensions'
+    | '/live-tv'
+    | '/movies'
+    | '/my-space'
+    | '/search'
+    | '/series'
+    | '/settings'
+    | '/title/$kind/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AnimeRoute: typeof AnimeRoute
+  ExtensionsRoute: typeof ExtensionsRoute
+  LiveTvRoute: typeof LiveTvRoute
+  MoviesRoute: typeof MoviesRoute
+  MySpaceRoute: typeof MySpaceRoute
+  SearchRoute: typeof SearchRoute
+  SeriesRoute: typeof SeriesRoute
+  SettingsRoute: typeof SettingsRoute
+  TitleKindIdRoute: typeof TitleKindIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +169,83 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/anime': {
+      id: '/anime'
+      path: '/anime'
+      fullPath: '/anime'
+      preLoaderRoute: typeof AnimeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/extensions': {
+      id: '/extensions'
+      path: '/extensions'
+      fullPath: '/extensions'
+      preLoaderRoute: typeof ExtensionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/live-tv': {
+      id: '/live-tv'
+      path: '/live-tv'
+      fullPath: '/live-tv'
+      preLoaderRoute: typeof LiveTvRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/movies': {
+      id: '/movies'
+      path: '/movies'
+      fullPath: '/movies'
+      preLoaderRoute: typeof MoviesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/my-space': {
+      id: '/my-space'
+      path: '/my-space'
+      fullPath: '/my-space'
+      preLoaderRoute: typeof MySpaceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/search': {
+      id: '/search'
+      path: '/search'
+      fullPath: '/search'
+      preLoaderRoute: typeof SearchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/series': {
+      id: '/series'
+      path: '/series'
+      fullPath: '/series'
+      preLoaderRoute: typeof SeriesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/settings': {
+      id: '/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof SettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/title/$kind/$id': {
+      id: '/title/$kind/$id'
+      path: '/title/$kind/$id'
+      fullPath: '/title/$kind/$id'
+      preLoaderRoute: typeof TitleKindIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AnimeRoute: AnimeRoute,
+  ExtensionsRoute: ExtensionsRoute,
+  LiveTvRoute: LiveTvRoute,
+  MoviesRoute: MoviesRoute,
+  MySpaceRoute: MySpaceRoute,
+  SearchRoute: SearchRoute,
+  SeriesRoute: SeriesRoute,
+  SettingsRoute: SettingsRoute,
+  TitleKindIdRoute: TitleKindIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

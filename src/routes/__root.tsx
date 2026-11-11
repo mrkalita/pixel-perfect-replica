@@ -11,6 +11,9 @@ import {
 import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
+import { SiteHeader } from "@/components/rock/SiteHeader";
+import { MobileNav } from "@/components/rock/MobileNav";
+import { Toaster } from "@/components/ui/sonner";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 
 function NotFoundComponent() {
@@ -80,15 +83,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     // twitter:image here: every page without its own would inherit the root's preview image.
     meta: [
       { charSet: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { name: "viewport", content: "width=device-width, initial-scale=1, viewport-fit=cover" },
+      { name: "theme-color", content: "#141012" },
+      { title: "ROCK PLAY — Movies, Series, Anime & Live TV" },
+      { name: "description", content: "Discover the latest released movies, series and anime on ROCK PLAY." },
+      { property: "og:title", content: "ROCK PLAY" },
+      { property: "og:description", content: "Discover the latest released movies, series and anime." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: "@Lovable" },
     ],
     links: [
       {
@@ -96,6 +98,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         href: appCss,
       },
       { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800;900&family=Manrope:wght@400;500;600;700&display=swap",
+      },
     ],
   }),
   shellComponent: RootShell,
@@ -106,7 +114,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" className="dark">
       <head>
         <HeadContent />
       </head>
@@ -123,8 +131,27 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <Outlet />
+      <SiteHeader />
+      <main className="min-h-screen pb-20 lg:pb-0">
+        {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+        <Outlet />
+      </main>
+      <footer className="border-t border-border px-4 pb-28 pt-8 text-xs text-muted-foreground md:px-10 lg:pb-10">
+        <div className="mx-auto max-w-[1800px] space-y-1">
+          <p className="font-display text-base font-bold uppercase text-foreground">
+            Rock<span className="text-primary">Play</span>
+          </p>
+          <p>
+            Metadata: movies from the Apple TV store catalogue, series from{" "}
+            <a className="underline hover:text-foreground" href="https://www.tvmaze.com" target="_blank" rel="noreferrer">TVmaze</a>{" "}
+            (CC BY-SA), anime from{" "}
+            <a className="underline hover:text-foreground" href="https://anilist.co" target="_blank" rel="noreferrer">AniList</a>.
+            Ratings are shown with their source; IMDb ratings need licensed access and are not shown.
+          </p>
+        </div>
+      </footer>
+      <MobileNav />
+      <Toaster theme="dark" position="top-center" />
     </QueryClientProvider>
   );
 }
