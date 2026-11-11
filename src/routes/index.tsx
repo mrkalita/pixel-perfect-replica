@@ -17,7 +17,7 @@ const FILTERS: { value: Show | undefined; label: string }[] = [
 
 export const Route = createFileRoute("/")({
   validateSearch: (s: Record<string, unknown>): { show?: Show } => {
-    const v = s.show;
+    const v = s["show"];
     return v === "movie" || v === "series" || v === "anime" ? { show: v } : {};
   },
   head: () => ({

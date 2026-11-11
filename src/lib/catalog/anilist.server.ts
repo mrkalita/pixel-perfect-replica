@@ -23,6 +23,7 @@ interface Media {
   format: string | null;
   status: string | null;
   isAdult: boolean;
+  countryOfOrigin: string | null;
   description: string | null;
   nextAiringEpisode: { episode: number; airingAt: number } | null;
 }
@@ -33,7 +34,7 @@ async function gql<T>(query: string, variables: Record<string, unknown> = {}): P
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ query, variables }),
   });
-  if (r.errors?.length) throw new Error(r.errors[0].message);
+  if (r.errors?.length) throw new Error(r.errors[0]?.message ?? "AniList error");
   return r.data;
 }
 

@@ -21,7 +21,7 @@ export function MobileNav() {
           <li key={to}>
             <Link
               to={to}
-              search={to === "/search" ? { q: "" } : undefined}
+              {...(to === "/search" ? { search: { q: "" } } : {})}
               activeOptions={{ exact: to === "/" }}
               className="flex flex-col items-center gap-1 py-2.5 text-[10px] font-medium text-muted-foreground data-[status=active]:text-primary"
             >

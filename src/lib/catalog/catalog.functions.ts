@@ -22,7 +22,7 @@ const LIVE_TV_NOTICE =
 function interleave(...lists: TitleSummary[][]): TitleSummary[] {
   const out: TitleSummary[] = [];
   const max = Math.max(0, ...lists.map((l) => l.length));
-  for (let i = 0; i < max; i++) for (const l of lists) if (l[i]) out.push(l[i]);
+  for (let i = 0; i < max; i++) for (const l of lists) { const x = l[i]; if (x) out.push(x); }
   return dedupe(out);
 }
 
@@ -79,7 +79,7 @@ export const getMovies = createServerFn({ method: "GET" }).handler(async (): Pro
     rows: [
       { id: "recent", title: "Recently Released", kind: "movie", items: recentlyReleased(all) },
       { id: "trending", title: "Trending Now", kind: "movie", items: all.slice(0, 30) },
-      ...picks.map((g, i) => ({ id: `g-${g.id}`, title: g.name, kind: "movie" as const, items: byGenre[i] })),
+      ...picks.map((g, i) => ({ id: `g-${g.id}`, title: g.name, kind: "movie" as const, items: byGenre[i] ?? [] })),
     ],
     errors,
   };

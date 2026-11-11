@@ -18,7 +18,7 @@ export function Hero({ items }: { items: TitleSummary[] }) {
   }, [paused, items.length]);
 
   if (!items.length) return <div className="h-24" />;
-  const t = items[Math.min(i, items.length - 1)];
+  const t = items[Math.min(i, items.length - 1)] ?? items[0]!;
   const date = formatDate(t.releaseDate);
 
   return (

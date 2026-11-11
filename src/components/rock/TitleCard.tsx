@@ -22,7 +22,7 @@ export function RatingPill({ t, className }: { t: TitleSummary; className?: stri
   );
 }
 
-export function TitleCard({ t, showKind = false, className }: { t: TitleSummary; showKind?: boolean; className?: string }) {
+export function TitleCard({ t, showKind = false, className }: { t: TitleSummary; showKind?: boolean | undefined; className?: string | undefined }) {
   const date = formatDate(t.releaseDate);
   const genre = t.genres[0];
   return (
