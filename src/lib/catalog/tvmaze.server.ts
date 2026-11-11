@@ -47,7 +47,7 @@ function toSummary(s: Show, extra?: Partial<TitleSummary>): TitleSummary {
     id: String(s.id),
     kind: "series",
     title: s.name,
-    poster: s.image?.medium?.replace("medium_portrait", "original_untouched") ? s.image?.original ?? s.image?.medium ?? null : null,
+    poster: s.image?.original ?? s.image?.medium ?? null,
     backdrop: null,
     year: s.premiered ? Number(s.premiered.slice(0, 4)) : null,
     releaseDate: s.premiered ?? null,
@@ -101,12 +101,6 @@ export async function latestEpisodes(days = 2): Promise<TitleSummary[]> {
   );
 }
 
-/** Shows currently airing, ranked by TVmaze's popularity weight. */
-export async function trendingSeries(): Promise<TitleSummary[]> {
-  const eps = await latestEpisodes(3);
-  return eps; // ranked in popularShowsFromSchedule below when weights are needed
-}
-
 async function indexPages(pages: number[]): Promise<Show[]> {
   const lists = await Promise.all(pages.map((p) => fetchJson<Show[]>(`${API}/shows?page=${p}`, undefined, 6 * 3600_000)));
   return lists.flat().filter((s) => s.image && isReleased(s.premiered) && !isAnime(s));
@@ -126,6 +120,7 @@ export async function topRatedSeries(): Promise<TitleSummary[]> {
     .map((s) => toSummary(s));
 }
 
+/** Shows with episodes in the last few days, ranked by TVmaze popularity weight. */
 export async function scheduleTrending(): Promise<TitleSummary[]> {
   const now = Date.now();
   const dates = [0, 1, 2, 3].map(shiftDate);
