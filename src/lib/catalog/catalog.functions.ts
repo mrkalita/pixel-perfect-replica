@@ -22,7 +22,7 @@ const LIVE_TV_NOTICE =
 function interleave(...lists: TitleSummary[][]): TitleSummary[] {
   const out: TitleSummary[] = [];
   const max = Math.max(0, ...lists.map((l) => l.length));
-  for (let i = 0; i < max; i++) for (const l of lists) if (l[i]) out.push(l[i]);
+  for (let i = 0; i < max; i++) for (const l of lists) { const x = l[i]; if (x) out.push(x); }
   return dedupe(out);
 }
 
