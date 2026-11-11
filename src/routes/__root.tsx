@@ -12,6 +12,7 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { SiteHeader } from "@/components/rock/SiteHeader";
+import { GenreOnboarding } from "@/components/rock/GenreOnboarding";
 import { MobileNav } from "@/components/rock/MobileNav";
 import { Toaster } from "@/components/ui/sonner";
 import { reportLovableError } from "../lib/lovable-error-reporting";
@@ -132,6 +133,7 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <SiteHeader />
+      <GenreOnboarding />
       <main className="min-h-screen pb-20 lg:pb-0">
         {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
         <Outlet />
