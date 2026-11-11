@@ -51,7 +51,7 @@ function toSummary(t: Track): TitleSummary {
     kind: "movie",
     title: t.trackName,
     poster: art(t.artworkUrl100, "400x600bb.jpg"),
-    backdrop: art(t.artworkUrl100, "1600x900cc.jpg"),
+    backdrop: null,
     year: date ? Number(date.slice(0, 4)) : null,
     releaseDate: date,
     releaseLabel: "Release date",
