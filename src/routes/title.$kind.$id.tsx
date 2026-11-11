@@ -218,7 +218,7 @@ function Facts({ t }: { t: TitleDetail }) {
         {rows.map((r) => (
           <div key={r.label}>
             <dt className="text-xs uppercase tracking-wider text-muted-foreground">{r.label}</dt>
-            <dd className="mt-0.5 break-words capitalize-first text-foreground">
+            <dd className="mt-0.5 break-words text-foreground">
               {/^https?:\/\//.test(r.value) ? (
                 <a href={r.value} target="_blank" rel="noreferrer" className="underline">
                   {new URL(r.value).host}
