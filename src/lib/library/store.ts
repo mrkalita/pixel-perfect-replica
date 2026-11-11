@@ -1,11 +1,10 @@
-// Local library (My List, recently viewed, watch progress). Device-only until accounts arrive (Stage 6).
+// Local library (My List, recently viewed, watch progress and genre preferences).
 import { useSyncExternalStore } from "react";
 import type { TitleSummary } from "@/lib/catalog/types";
 
 export interface HistoryEntry {
   title: TitleSummary;
   at: string;
-  /** 0..1 playback progress; only set by a real player. */
   progress?: number;
   episode?: string;
 }
@@ -14,10 +13,18 @@ export interface LibraryState {
   myList: TitleSummary[];
   viewed: HistoryEntry[];
   watched: HistoryEntry[];
+  preferredGenres: string[];
+  preferencesCompleted: boolean;
 }
 
 const KEY = "rockplay.library.v1";
-const EMPTY: LibraryState = { myList: [], viewed: [], watched: [] };
+const EMPTY: LibraryState = {
+  myList: [],
+  viewed: [],
+  watched: [],
+  preferredGenres: [],
+  preferencesCompleted: false,
+};
 let state: LibraryState = EMPTY;
 let loaded = false;
 const listeners = new Set<() => void>();
@@ -27,7 +34,15 @@ function load() {
   loaded = true;
   try {
     const raw = window.localStorage.getItem(KEY);
-    if (raw) state = { ...EMPTY, ...(JSON.parse(raw) as Partial<LibraryState>) };
+    if (raw) {
+      const saved = JSON.parse(raw) as Partial<LibraryState>;
+      state = {
+        ...EMPTY,
+        ...saved,
+        preferredGenres: Array.isArray(saved.preferredGenres) ? saved.preferredGenres : [],
+        preferencesCompleted: saved.preferencesCompleted === true,
+      };
+    }
   } catch {
     state = EMPTY;
   }
@@ -73,7 +88,6 @@ export function useLibrary(): LibraryState {
 
 const keyOf = (t: { kind: string; id: string }) => `${t.kind}:${t.id}`;
 
-/** Store only summary fields so the saved card stays small. */
 function slim(t: TitleSummary): TitleSummary {
   return { ...t, overview: t.overview ? t.overview.slice(0, 300) : null };
 }
@@ -90,6 +104,10 @@ export const library = {
     load();
     const viewed = [{ title: slim(t), at: new Date().toISOString() }, ...state.viewed.filter((v) => keyOf(v.title) !== keyOf(t))].slice(0, 40);
     set({ ...state, viewed });
+  },
+  setPreferences(genres: string[], completed = true) {
+    load();
+    set({ ...state, preferredGenres: [...new Set(genres)].slice(0, 18), preferencesCompleted: completed });
   },
   clearViewed() {
     load();
